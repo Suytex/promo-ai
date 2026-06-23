@@ -23,6 +23,26 @@
       --radius:    12px;
     }
 
+    /* WhatsApp CTA links inside rendered Markdown → button style */
+    #content-wrapper a[href*="wa.me"] {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: #fff !important;
+      font-weight: 700;
+      padding: 0.65rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: background 0.2s, transform 0.2s;
+      margin: 0.3rem 0;
+    }
+    #content-wrapper a[href*="wa.me"]:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -248,14 +268,14 @@
 
   <nav>
     <span class="nav-brand">AI Productivity Experience</span>
-    <a class="nav-cta" href="https://wa.me/18096399999" target="_blank" rel="noopener">Reservar cupo →</a>
+    <a class="nav-cta" href="https://wa.me/18096399999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">Reservar cupo →</a>
   </nav>
 
   <section id="hero">
     <span class="eyebrow">Entrenamiento en vivo · 5 días</span>
     <h1>Tu competencia ya está<br><span>usando AI.</span></h1>
     <p class="subtitle">5 días que cambian cómo trabajas para siempre. Para emprendedores que no tienen tiempo que perder.</p>
-    <a class="hero-cta" href="https://wa.me/18096399999" target="_blank" rel="noopener">
+    <a class="hero-cta" href="https://wa.me/18096399999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">
       📱 Reserva tu cupo por WhatsApp
     </a>
   </section>
@@ -266,18 +286,21 @@
     <div id="md-content" style="display:none;"></div>
   </main>
 
-  <a id="sticky-cta" href="https://wa.me/18096399999" target="_blank" rel="noopener">📱 Reservar cupo → 809-639-9999</a>
+  <a id="sticky-cta" href="https://wa.me/18096399999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">📱 Reservar cupo → 809-639-9999</a>
 
   <script>
     (function () {
-      var WA_LINK = 'https://wa.me/18096399999';
+      var WA_LINK = 'https://wa.me/18096399999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience';
 
-      // Patch all CTA links dynamically
+      // Open all external links (wa.me, http://, https://) in new tab
       function patchLinks() {
         try {
-          document.querySelectorAll('a[href*="whatsapp"], a[href*="wa.me"]').forEach(function (a) {
-            a.setAttribute('target', '_blank');
-            a.setAttribute('rel', 'noopener');
+          document.querySelectorAll('#md-content a[href]').forEach(function (a) {
+            var href = a.getAttribute('href') || '';
+            if (href.startsWith('http://') || href.startsWith('https://')) {
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener');
+            }
           });
         } catch (e) { /* silent */ }
       }
