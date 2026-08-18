@@ -1,370 +1,723 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Productivity Experience — Tu competencia ya está usando AI</title>
   <meta name="description" content="5 días que cambian cómo trabajas para siempre. Entrenamiento práctico en vivo para emprendedores." />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Design system: suytex.css importa las fuentes (Space Grotesk + Inter);
+       theme-light.css es la capa semantica light y exige data-theme="light". -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Suytex/suytex-design@v1.2.0/suytex.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Suytex/suytex-design@v1.2.0/theme-light.css">
+
   <style>
-    :root {
-      --bg:        #0a0a0f;
-      --bg-card:   #111118;
-      --bg-card2:  #16161f;
-      --border:    #2a2a3a;
-      --accent:    #7c3aed;
-      --accent2:   #a855f7;
-      --accent-glow: rgba(124, 58, 237, 0.25);
-      --text:      #e2e2f0;
-      --text-muted:#8888aa;
-      --green:     #22c55e;
-      --red:       #ef4444;
-      --yellow:    #f59e0b;
-      --radius:    12px;
-    }
+    /* ═══════════════════════════════════════════════════════════
+       Solo lo que el design system NO cubre: layout, grids, las dos
+       rejillas de dos columnas, los callouts y los botones. Color,
+       tipografia, radius y espaciado salen de los tokens --su-*.
+       ═══════════════════════════════════════════════════════════ */
 
-    /* WhatsApp CTA links inside rendered Markdown → button style */
-    #content-wrapper a[href*="wa.me"] {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--accent);
-      color: #fff !important;
-      font-weight: 700;
-      padding: 0.65rem 1.5rem;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 0 20px var(--accent-glow);
-      transition: background 0.2s, transform 0.2s;
-      margin: 0.3rem 0;
-    }
-    #content-wrapper a[href*="wa.me"]:hover {
-      background: var(--accent2);
-      transform: translateY(-2px);
-    }
-
+    /* ─── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      line-height: 1.7;
-      min-height: 100vh;
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container { max-width: var(--su-maxw); margin: 0 auto; padding: 0 24px; }
+    .section { padding: var(--su-section-y) 0; }
+    /* Alternancia por orden de aparicion: si se reordenan las secciones en
+       content.txt, el ritmo bg / bg-alt se mantiene solo. Sin divisorias. */
+    #app .section:nth-of-type(even) { background: var(--su-bg-alt); }
+
+    /* ─── TIPOGRAFIA ─────────────────────────────────────────── */
+    /* Esta landing repite una misma forma en cada seccion: el h2 es una
+       etiqueta corta ("El Problema") y el h3 que le sigue carga la
+       declaracion. Por eso el h2 va atenuado y pequeno, y el h3 se lleva la
+       escala de display — es la entradilla de portafolios, generalizada.
+       No se usa .su-title: theme-light.css le fija tamano hero. */
+    #app .section > .container > h2 {
+      font-family: var(--su-font-body);
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.08em;
+      color: var(--su-fg-muted);
+      margin-bottom: 8px;
+    }
+    #app .section h3 {
+      font-family: var(--su-font-display);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      color: var(--su-fg);
+      max-width: 32ch;
+      margin-bottom: 20px;
+    }
+    #app .section p {
+      font-family: var(--su-font-body);
+      font-weight: 400;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--su-fg-muted);
+      max-width: 68ch;
+      margin-bottom: 16px;
+    }
+    #app .section li {
+      font-family: var(--su-font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--su-fg-muted);
+    }
+    #app .section strong { color: var(--su-fg); font-weight: 500; }
+    #app .section ul { margin-top: 40px; }
+
+    /* ─── ICONOS ─────────────────────────────────────────────── */
+    /* .su-icon (suytex.css) aporta 24x24 + stroke; el <svg> lo inyecta
+       enhanceIcons(), no el auto-render de icons.js — esta landing pinta su
+       contenido despues de DOMContentLoaded y ese auto-render es de una
+       sola pasada. La clase es obligatoria: sin ella el <use> hereda
+       fill:black / stroke:none y el icono sale como mancha negra. */
+    [data-theme="light"] .su-icon {
+      display: inline-flex;
+      flex: none;
+      vertical-align: -0.25em;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+    /* ─── HERO ───────────────────────────────────────────────── */
+    /* Aqui el h1 SI es el titular (en portafolios el h1 era la marca y el
+       titular iba en el h2). Se mantiene un solo h1 por pagina. */
+    #app .section--hero {
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      padding: calc(var(--su-section-y) + 24px) 0;
     }
-    .nav-brand {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--accent2);
-      letter-spacing: 0.02em;
-    }
-    .nav-cta {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.45rem 1.1rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
+    #app .section--hero .container { width: 100%; }
+    [data-theme="light"] #app .section--hero > .container > h1 {
+      font-family: var(--su-font-display);
       font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--su-fg);
+      max-width: 22ch;
+      margin-bottom: 24px;
     }
-    .nav-cta:hover { background: var(--accent2); }
+    /* El h2 del hero es subtitulo, no etiqueta: sube de escala respecto al
+       h2 de las demas secciones. */
+    [data-theme="light"] #app .section--hero > .container > h2 {
+      font-family: var(--su-font-body);
+      font-weight: 400;
+      font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+      letter-spacing: 0;
+      line-height: 1.5;
+      color: var(--su-fg-muted);
+      max-width: 46ch;
+      margin-bottom: 12px;
+    }
+    #app .section--hero > .container > p { margin-bottom: 40px; }
 
-    /* ── HERO ── */
-    #hero {
-      text-align: center;
-      padding: 5rem 1.5rem 4rem;
-      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124,58,237,0.18) 0%, transparent 70%);
-      border-bottom: 1px solid var(--border);
+    /* ─── CARDS: icono arriba, etiqueta, cuerpo ──────────────── */
+    /* .su-card no es alcanzable desde markdown (marked genera <li> pelados),
+       asi que se replican sus valores del tema light con los mismos tokens. */
+    #app .section--pain li,
+    #app .section--method li,
+    #app .section--format li,
+    #app .section--solution li,
+    #app .section--transformation li,
+    #app .two-col,
+    #app .pricing-card {
+      background: var(--su-surface);
+      border: 1px solid var(--su-line-subtle);
+      border-radius: var(--su-radius-md);
+      box-shadow: none;
     }
-    #hero .eyebrow {
-      display: inline-block;
-      background: rgba(124,58,237,0.15);
-      border: 1px solid rgba(124,58,237,0.4);
-      color: var(--accent2);
-      font-size: 0.8rem;
+
+    #app .section--pain ul,
+    #app .section--method ul,
+    #app .section--format ul {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    #app .section--pain li,
+    #app .section--method li,
+    #app .section--format li { padding: 28px; }
+    #app .section--pain li .su-icon,
+    #app .section--method li .su-icon,
+    #app .section--format li .su-icon {
+      display: block;
+      margin-bottom: 16px;
+    }
+    /* El strong queda en linea porque el copy de pain/format sigue con
+       " — descripcion": partirlo en bloque dejaria la raya huerfana. En
+       method no hay raya, asi que ahi el strong si es una linea propia. */
+    #app .section--method li strong {
+      display: block;
+      font-size: 1.0625rem;
+      margin-bottom: 6px;
+    }
+
+    /* ─── FILAS: icono a la izquierda, sangria francesa ──────── */
+    /* El icono va absoluto para que el texto envuelva alineado y no se
+       parta en items de flex. */
+    #app .section--solution ul,
+    #app .section--transformation ul {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    #app .section--solution li,
+    #app .section--transformation li {
+      position: relative;
+      padding: 20px 22px 20px 56px;
+    }
+    #app .section--solution li .su-icon,
+    #app .section--transformation li .su-icon {
+      position: absolute;
+      left: 22px;
+      top: 21px;
+    }
+
+    /* ─── DOS COLUMNAS: comparison y for-who ─────────────────── */
+    #app .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    #app .two-col { padding: 32px; }
+    /* Dentro de la columna el h3 es cabecera de tarjeta, no display. */
+    #app .two-col h3 {
+      position: relative;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      max-width: none;
+      padding-left: 34px;
+      margin-bottom: 20px;
+    }
+    #app .two-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 0;
+    }
+    #app .two-col li { position: relative; padding-left: 34px; }
+    #app .two-col h3 .su-icon,
+    #app .two-col li .su-icon { position: absolute; left: 0; top: 2px; }
+    /* La columna negativa se diferencia por glifo (x-circle) y por un neutro
+       del propio sistema — no se introduce ningun color fuera del DS. Se
+       ancla al nombre del icono, no a la posicion: en comparison la columna
+       negativa es la primera y en for-who la segunda. */
+    [data-theme="light"] #app .two-col .su-icon[data-su-icon="x-circle"] {
+      stroke: var(--su-fg-subtle);
+    }
+
+    /* ─── CALLOUTS (blockquote) ──────────────────────────────── */
+    /* Componente nuevo: portafolios no tiene citas. Solo tokens del DS. */
+    #app .section blockquote {
+      position: relative;
+      background: var(--su-surface);
+      border: 1px solid var(--su-line-subtle);
+      border-left: 3px solid var(--su-accent);
+      border-radius: var(--su-radius-md);
+      padding: 20px 24px 20px 60px;
+      margin-top: 32px;
+      max-width: 68ch;
+    }
+    #app .section blockquote p {
+      margin: 0;
+      color: var(--su-fg);
+    }
+    #app .section blockquote .su-icon {
+      position: absolute;
+      left: 24px;
+      top: 21px;
+    }
+
+    /* ─── PRICING ────────────────────────────────────────────── */
+    #app .pricing-card {
+      max-width: 620px;
+      padding: 40px;
+      margin-top: 24px;
+      border-color: var(--su-line);
+      border-radius: var(--su-radius-lg);
+    }
+    #app .price-main { margin-bottom: 0; }
+    #app .price-main strong {
+      display: block;
+      font-family: var(--su-font-display);
       font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
-      margin-bottom: 1.5rem;
-    }
-    #hero h1 {
-      font-size: clamp(2.2rem, 6vw, 4rem);
-      font-weight: 800;
-      line-height: 1.15;
+      font-size: clamp(2.25rem, 5vw, 3rem);
+      line-height: 1.05;
       letter-spacing: -0.02em;
-      margin-bottom: 1.2rem;
+      color: var(--su-fg);
     }
-    #hero h1 span { color: var(--accent2); }
-    #hero .subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
+    #app .pricing-card ul {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
     }
-    #hero .hero-cta {
+    #app .pricing-card li { position: relative; padding-left: 36px; }
+    #app .pricing-card li .su-icon { position: absolute; left: 0; top: 2px; }
+    #app .pricing-card blockquote { margin-top: 28px; }
+    #app .pricing-card .btn { margin-top: 28px; }
+
+    /* ─── CTA ────────────────────────────────────────────────── */
+    #app .section--cta ul {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 68ch;
+    }
+    #app .section--cta li { position: relative; padding-left: 36px; }
+    #app .section--cta li .su-icon { position: absolute; left: 0; top: 2px; }
+    #app .section--cta .btn { margin: 40px 0 40px; }
+    /* Cierre: tres lineas atenuadas separadas por una linea neutra. */
+    #app .section--cta .cta-closing {
+      border-top: 1px solid var(--su-line-subtle);
+      padding-top: 28px;
+      margin-bottom: 4px;
+      font-size: 0.9375rem;
+    }
+    #app .section--cta .cta-closing ~ p {
+      margin-bottom: 4px;
+      font-size: 0.9375rem;
+    }
+    #app .section--cta .link-accent { color: var(--su-accent); }
+    #app .section--cta .link-accent:hover { text-decoration: underline; }
+
+    /* ─── BOTONES ────────────────────────────────────────────── */
+    /* Receta de preview/light.html del design system. Anadido propio: gap,
+       para el icono que el preview no contempla. Sin #app en el selector:
+       el boton flotante vive fuera de #app. */
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--accent);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 0.9rem 2.2rem;
-      border-radius: 999px;
+      justify-content: center;
+      gap: 10px;
+      height: 48px;
+      padding: 0 28px;
+      font-family: var(--su-font-body);
+      font-weight: 500;
+      font-size: 15px;
+      border-radius: var(--su-radius-pill);
+      cursor: pointer;
+      border: 1px solid transparent;
       text-decoration: none;
-      box-shadow: 0 0 30px var(--accent-glow);
-      transition: transform 0.2s, background 0.2s;
     }
-    #hero .hero-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-primary { background: var(--su-accent); color: var(--su-on-accent); }
+    .btn-primary:hover { background: var(--su-accent-hover); }
+    /* Dentro de un pill relleno el icono sigue al texto, no al acento. */
+    [data-theme="light"] .btn-primary .su-icon { stroke: currentColor; }
 
-    /* ── MAIN CONTENT ── */
-    #content-wrapper {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-    }
-
-    /* $497 price h1 — special treatment */
-    #content-wrapper h1 {
-      background: linear-gradient(135deg, #fff 30%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-size: clamp(2.2rem, 6vw, 3.2rem);
-      text-align: center;
-      margin: 1rem 0;
-    }
-
-    /* Markdown overrides */
-    #content-wrapper h2 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      font-weight: 800;
-      color: var(--accent2);
-      margin: 3.5rem 0 0.4rem;
-      padding-top: 1rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.6rem;
-      letter-spacing: -0.01em;
-    }
-    #content-wrapper h2:first-child { margin-top: 0; }
-
-    #content-wrapper h3 {
-      font-size: clamp(1.1rem, 3vw, 1.4rem);
-      font-weight: 700;
-      color: var(--text);
-      margin: 1.6rem 0 0.8rem;
-    }
-
-    #content-wrapper p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    #content-wrapper strong { color: var(--text); }
-
-    #content-wrapper ul, #content-wrapper ol {
-      padding-left: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-    #content-wrapper li {
-      color: var(--text-muted);
-      margin-bottom: 0.45rem;
-    }
-    #content-wrapper li strong { color: var(--text); }
-
-    #content-wrapper hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
-    }
-
-    /* Blockquotes → callout cards */
-    #content-wrapper blockquote {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 1.1rem 1.4rem;
-      margin: 1.5rem 0;
-    }
-    #content-wrapper blockquote p {
-      color: var(--text);
-      margin: 0;
-    }
-
-    /* Tables */
-    #content-wrapper table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      font-size: 0.92rem;
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-    #content-wrapper thead {
-      background: var(--bg-card2);
-    }
-    #content-wrapper th {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      font-weight: 700;
-      color: var(--accent2);
-      border-bottom: 1px solid var(--border);
-    }
-    #content-wrapper td {
-      padding: 0.7rem 1rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--text-muted);
-    }
-    #content-wrapper tbody tr:last-child td { border-bottom: none; }
-    #content-wrapper tbody tr:hover { background: rgba(255,255,255,0.02); }
-
-    /* ── LOADING / ERROR ── */
-    #loading, #error-msg {
-      text-align: center;
-      padding: 4rem 1rem;
-      color: var(--text-muted);
-    }
-    #error-msg { color: var(--red); }
-
-    /* ── FLOATING CTA ── */
+    /* ─── CTA FLOTANTE ───────────────────────────────────────── */
+    /* Sustituye al nav sticky del diseno anterior como via de conversion
+       siempre disponible. --su-shadow es elevacion del sistema (1px), no el
+       glow del tema dark. */
     #sticky-cta {
       position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 4px 24px var(--accent-glow);
-      transition: transform 0.2s, background 0.2s;
+      right: 24px;
+      bottom: 24px;
       z-index: 200;
-      display: none;
+      box-shadow: var(--su-shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
     }
-    #sticky-cta.visible { display: block; }
-    #sticky-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+    #sticky-cta.visible { opacity: 1; visibility: visible; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav { padding: 0.75rem 1rem; }
-      #hero { padding: 3.5rem 1rem 2.5rem; }
-      #content-wrapper { padding: 2rem 1rem 4rem; }
-      #content-wrapper table { font-size: 0.8rem; }
-      #content-wrapper th, #content-wrapper td { padding: 0.5rem 0.6rem; }
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer { background: var(--su-bg-alt); }
+    footer .container { padding-top: 32px; padding-bottom: 32px; }
+    /* --su-fg-muted, no --su-fg-subtle: theme-light.css documenta que
+       #86868B se queda en 3.6:1 y no cumple AA como texto (el propio DS ya
+       hace este cambio en .su-caption por la misma razon). */
+    footer span {
+      font-family: var(--su-font-body);
+      font-size: 13px;
+      color: var(--su-fg-muted);
+    }
+
+    /* ─── ESTADOS: CARGA Y ERROR ─────────────────────────────── */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: var(--su-font-body);
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      color: var(--su-fg-muted);
+    }
+    .loading::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--su-accent);
+      border-radius: 50%;
+      margin-left: 10px;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    .error-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px;
+      text-align: center;
+      gap: 16px;
+      font-family: var(--su-font-body);
+    }
+    .error-state p { max-width: 46ch; color: var(--su-fg-muted); line-height: 1.6; }
+    .error-state .error-title { color: var(--su-fg); font-weight: 500; font-size: 1.0625rem; }
+    .error-state code {
+      background: var(--su-bg-alt);
+      border: 1px solid var(--su-line-subtle);
+      border-radius: var(--su-radius-sm);
+      padding: 2px 6px;
+      font-size: .9em;
+    }
+    .error-state small { color: var(--su-fg-muted); font-size: 13px; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    /* --su-section-y ya baja a 64px en <=768px desde theme-light.css:
+       no se redeclara aqui. Los valores base son los de escritorio. */
+
+    /* Tramo intermedio: con --su-maxw 980px las rejillas de 3 columnas se
+       quedan sin ancho antes que nada. */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      #app .section--pain ul,
+      #app .section--method ul,
+      #app .section--format ul { grid-template-columns: repeat(2, 1fr); }
+      #app .pricing-card { padding: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      #app .section--pain ul,
+      #app .section--method ul,
+      #app .section--format ul { grid-template-columns: repeat(2, 1fr); }
+      #app .section--solution ul,
+      #app .section--transformation ul { grid-template-columns: 1fr; }
+      #app .section--pain li,
+      #app .section--method li,
+      #app .section--format li { padding: 24px; }
+      #app .two-col { padding: 28px; }
+      #app .pricing-card { padding: 32px; }
+    }
+    @media (max-width: 640px) {
+      #app .section--pain ul,
+      #app .section--method ul,
+      #app .section--format ul { grid-template-columns: 1fr; }
+      #app .two-col-grid { grid-template-columns: 1fr; }
+      #app .pricing-card { padding: 28px 24px; }
+      /* Etiqueta larga: el pill de altura fija no cabe a 375px. */
+      .btn {
+        height: auto;
+        min-height: 48px;
+        padding: 14px 24px;
+        line-height: 1.35;
+        max-width: 100%;
+      }
+      /* A ancho completo la barra flotante tapaba el texto del footer al
+         llegar al final del scroll (16px medidos): se le hace hueco. */
+      #sticky-cta { right: 16px; bottom: 16px; left: 16px; }
+      footer .container { padding-bottom: 88px; }
     }
   </style>
 </head>
-<body>
+<body class="su-surface">
 
-  <nav>
-    <span class="nav-brand">AI Productivity Experience</span>
-    <a class="nav-cta" href="https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">Reservar cupo →</a>
-  </nav>
+  <div id="app">
+    <div class="loading">Cargando</div>
+  </div>
 
-  <section id="hero">
-    <span class="eyebrow">Entrenamiento en vivo · 5 días</span>
-    <h1>Tu competencia ya está<br><span>usando AI.</span></h1>
-    <p class="subtitle">5 días que cambian cómo trabajas para siempre. Para emprendedores que no tienen tiempo que perder.</p>
-    <a class="hero-cta" href="https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">
-      📱 Reserva tu cupo por WhatsApp
-    </a>
-  </section>
+  <footer id="footer" style="display:none">
+    <div class="container"><span id="footer-brand"></span></div>
+  </footer>
 
-  <main id="content-wrapper">
-    <div id="loading">Cargando contenido…</div>
-    <div id="error-msg" style="display:none;">No se pudo cargar el contenido. Recarga la página.</div>
-    <div id="md-content" style="display:none;"></div>
-  </main>
+  <a id="sticky-cta" class="btn btn-primary" href="#reserva" target="_blank" rel="noopener noreferrer">
+    <span class="su-icon" data-su-icon="message-circle"></span>
+    <span>Reservar cupo</span>
+  </a>
 
-  <a id="sticky-cta" href="https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience" target="_blank" rel="noopener">📱 Reservar cupo → 809-408-9999</a>
+  <!-- marked.js CDN — version fijada: @latest deja entrar breaking changes -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <!-- sprite de iconos del design system (define window.suIcon) -->
+  <script src="https://cdn.jsdelivr.net/gh/Suytex/suytex-design@v1.2.0/icons.js"></script>
 
   <script>
-    (function () {
-      var WA_LINK = 'https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience';
+  // ─── MARKDOWN PARSER CONFIG ────────────────────────────────
+  marked.setOptions({ breaks: true, gfm: true });
 
-      // Open all external links (wa.me, http://, https://) in new tab
-      function patchLinks() {
-        try {
-          document.querySelectorAll('#md-content a[href]').forEach(function (a) {
-            var href = a.getAttribute('href') || '';
-            if (href.startsWith('http://') || href.startsWith('https://')) {
-              a.setAttribute('target', '_blank');
-              a.setAttribute('rel', 'noopener');
-            }
-          });
-        } catch (e) { /* silent */ }
+  // ─── DOM READY ────────────────────────────────────────────
+  // icons.js inyecta el sprite en DOMContentLoaded. Esperarlo antes de
+  // pintar garantiza que los <use href="#su-*"> de enhanceIcons resuelvan
+  // incluso si el fetch responde desde cache antes de ese evento.
+  function domReady() {
+    return document.readyState === 'loading'
+      ? new Promise(r => document.addEventListener('DOMContentLoaded', r, { once: true }))
+      : Promise.resolve();
+  }
+
+  // ─── PARSE FRONTMATTER ────────────────────────────────────
+  function parseFrontmatter(text) {
+    const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+    if (!match) return { meta: {}, body: text };
+    const meta = {};
+    match[1].split('\n').forEach(line => {
+      const idx = line.indexOf(':');
+      if (idx < 0) return;
+      const key = line.slice(0, idx).trim();
+      const val = line.slice(idx + 1).trim();
+      if (key) meta[key] = val;
+    });
+    return { meta, body: text.slice(match[0].length) };
+  }
+
+  // ─── PARSE SECTIONS ───────────────────────────────────────
+  function parseSections(body) {
+    const parts = body.split(/<!--\s*section:\s*([\w-]+)\s*-->/);
+    const sections = [];
+    // parts[0] is content before first marker (ignored)
+    for (let i = 1; i < parts.length; i += 2) {
+      const type    = parts[i].trim();
+      const content = (parts[i + 1] || '').trim();
+      if (content) sections.push({ type, content });
+    }
+    return sections;
+  }
+
+  // ─── BUILD SECTION HTML ───────────────────────────────────
+  function buildSection(section) {
+    const html   = marked.parse(section.content);
+    const anchor = section.type === 'cta' ? ' id="reserva"' : '';
+    return `<section class="section section--${section.type}"${anchor}>
+      <div class="container">${html}</div>
+    </section>`;
+  }
+
+  // ─── HELPER: link → boton ─────────────────────────────────
+  function asButton(a, meta) {
+    if (meta.whatsapp) {
+      a.href = meta.whatsapp;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    a.classList.add('btn', 'btn-primary');
+  }
+
+  // ─── POST-PROCESS: DOS COLUMNAS ───────────────────────────
+  // Sirve a comparison y for-who. A diferencia del enhanceForWho de
+  // portafolios, toma los DOS ULTIMOS h3 como cabeceras: aqui cada seccion
+  // abre con un h3 de titular que debe quedar por encima de la rejilla. Lo
+  // que venga despues de la segunda columna (un blockquote, otro titular)
+  // vuelve a bajar al flujo normal.
+  function enhanceTwoCols(type) {
+    const container = document.querySelector(`.section--${type} .container`);
+    if (!container) return;
+    try {
+      const h3s = [...container.querySelectorAll(':scope > h3')];
+      if (h3s.length < 2) return;
+      const headA = h3s[h3s.length - 2];
+      const headB = h3s[h3s.length - 1];
+
+      const grid = document.createElement('div');
+      grid.className = 'two-col-grid';
+      const colA = document.createElement('div');
+      colA.className = 'two-col';
+      const colB = document.createElement('div');
+      colB.className = 'two-col';
+
+      const before = [], after = [];
+      let zone = 'before';
+      // Snapshot antes de mover nada.
+      for (const el of [...container.children]) {
+        if (el === headA) zone = 'a';
+        else if (el === headB) zone = 'b';
+        else if (zone === 'b' && /^(H[1-6]|BLOCKQUOTE)$/.test(el.tagName)) zone = 'after';
+
+        if (zone === 'before')    before.push(el);
+        else if (zone === 'a')    colA.appendChild(el);
+        else if (zone === 'b')    colB.appendChild(el);
+        else                      after.push(el);
       }
 
-      // Show sticky CTA after scrolling past hero
-      function initStickyCta() {
-        try {
-          var btn = document.getElementById('sticky-cta');
-          var hero = document.getElementById('hero');
-          if (!btn || !hero) return;
-          var observer = new IntersectionObserver(function (entries) {
-            btn.classList.toggle('visible', !entries[0].isIntersecting);
-          }, { threshold: 0 });
-          observer.observe(hero);
-        } catch (e) { /* silent */ }
+      container.innerHTML = '';
+      before.forEach(n => container.appendChild(n));
+      grid.appendChild(colA);
+      grid.appendChild(colB);
+      container.appendChild(grid);
+      after.forEach(n => container.appendChild(n));
+    } catch (e) {
+      console.warn(`enhanceTwoCols(${type}) failed:`, e);
+    }
+  }
+
+  // ─── POST-PROCESS: PRICING ────────────────────────────────
+  // Todo lo que sigue al h2 entra en la tarjeta. El primer <p> con <strong>
+  // es el precio; la lista, el callout y el boton los resuelve el CSS.
+  function enhancePricing(meta) {
+    const container = document.querySelector('.section--pricing .container');
+    if (!container) return;
+    try {
+      const card = document.createElement('div');
+      card.className = 'pricing-card';
+
+      const outer = [], inner = [];
+      let inCard = false;
+      for (const node of [...container.childNodes]) {
+        if (node.nodeName === 'H2') { outer.push(node); inCard = true; }
+        else if (inCard) inner.push(node);
+        else outer.push(node);
       }
 
-      // Render Markdown sections
-      function renderContent(md) {
-        try {
-          var el = document.getElementById('md-content');
-          var html = marked.parse(md);
+      container.innerHTML = '';
+      outer.forEach(n => container.appendChild(n));
+      inner.forEach(n => card.appendChild(n));
 
-          // Convert WhatsApp numbers into clickable links
-          html = html.replace(/809-408-9999/g,
-            '<a href="' + WA_LINK + '" target="_blank" rel="noopener" style="color:var(--accent2);font-weight:700;">809-408-9999</a>');
+      const priceP = card.querySelector('p > strong') && card.querySelector('p');
+      if (priceP) priceP.classList.add('price-main');
 
-          el.innerHTML = html;
-        } catch (e) {
-          document.getElementById('error-msg').textContent = 'Error al renderizar el contenido.';
-          document.getElementById('error-msg').style.display = 'block';
+      card.querySelectorAll('a').forEach(a => asButton(a, meta));
+      container.appendChild(card);
+    } catch (e) {
+      console.warn('enhancePricing failed:', e);
+    }
+  }
+
+  // ─── POST-PROCESS: CTA ────────────────────────────────────
+  // El copy ya trae sus enlaces: el primero se convierte en boton y los
+  // demas quedan como enlaces de acento dentro del cierre en cursiva.
+  function enhanceCTA(meta) {
+    const container = document.querySelector('.section--cta .container');
+    if (!container) return;
+    try {
+      const links = [...container.querySelectorAll('a')];
+      links.forEach((a, i) => {
+        if (i === 0) { asButton(a, meta); return; }
+        if (meta.whatsapp) {
+          a.href = meta.whatsapp;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
         }
+        a.classList.add('link-accent');
+      });
+
+      // La primera de las lineas de cierre en cursiva abre el bloque final.
+      const firstEm = container.querySelector('p > em');
+      if (firstEm) firstEm.parentNode.classList.add('cta-closing');
+    } catch (e) {
+      console.warn('enhanceCTA failed:', e);
+    }
+  }
+
+  // ─── POST-PROCESS: HERO ───────────────────────────────────
+  function enhanceHero(meta) {
+    const container = document.querySelector('.section--hero .container');
+    if (!container) return;
+    try {
+      container.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === '#reserva' || href === '#') {
+          if (meta.whatsapp) asButton(a, meta);
+          else { a.href = '#reserva'; a.classList.add('btn', 'btn-primary'); }
+          return;
+        }
+        a.classList.add('btn', 'btn-primary');
+      });
+    } catch (e) {
+      console.warn('enhanceHero failed:', e);
+    }
+  }
+
+  // ─── POST-PROCESS: CTA FLOTANTE ───────────────────────────
+  // Aparece al salir del hero. Sustituye al nav sticky del diseno anterior.
+  function enhanceStickyCTA(meta) {
+    try {
+      const btn  = document.getElementById('sticky-cta');
+      const hero = document.querySelector('.section--hero');
+      if (!btn || !hero) return;
+      if (meta.whatsapp) btn.href = meta.whatsapp;
+      if (typeof IntersectionObserver !== 'function') return;
+      const observer = new IntersectionObserver(entries => {
+        btn.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(hero);
+    } catch (e) {
+      console.warn('enhanceStickyCTA failed:', e);
+    }
+  }
+
+  // ─── POST-PROCESS: ICONOS ─────────────────────────────────
+  // Rellena los marcadores <span class="su-icon" data-su-icon="x"> que vienen
+  // de content.txt. Corre al final: los marcadores sobreviven a los movimientos
+  // de nodos de los otros enhance*.
+  function enhanceIcons() {
+    try {
+      if (typeof window.suIcon !== 'function') return;
+      document.querySelectorAll('[data-su-icon]').forEach(el => {
+        const name = el.getAttribute('data-su-icon');
+        if (!name || el.querySelector('svg')) return;
+        el.innerHTML = window.suIcon(name);
+      });
+    } catch (e) {
+      console.warn('enhanceIcons failed:', e);
+    }
+  }
+
+  // ─── MAIN ─────────────────────────────────────────────────
+  async function init() {
+    try {
+      const response = await fetch('./assets/content.txt');
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const text = await response.text();
+
+      await domReady();
+
+      const { meta, body } = parseFrontmatter(text);
+      const sections = parseSections(body);
+
+      if (meta.brand) {
+        document.getElementById('footer-brand').textContent =
+          `© ${new Date().getFullYear()} ${meta.brand}`;
       }
 
-      // Fetch content.txt
-      fetch('assets/content.txt')
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.text();
-        })
-        .then(function (text) {
-          document.getElementById('loading').style.display = 'none';
-          document.getElementById('md-content').style.display = 'block';
-          renderContent(text);
-          patchLinks();
-          initStickyCta();
-        })
-        .catch(function (err) {
-          document.getElementById('loading').style.display = 'none';
-          document.getElementById('error-msg').style.display = 'block';
-          console.error('Error cargando content.txt:', err);
-        });
-    })();
+      document.getElementById('app').innerHTML = sections.map(buildSection).join('');
+
+      // Post-process each section
+      enhanceTwoCols('comparison');
+      enhanceTwoCols('for-who');
+      enhancePricing(meta);
+      enhanceCTA(meta);
+      enhanceHero(meta);
+      enhanceStickyCTA(meta);
+      enhanceIcons();
+
+      document.getElementById('footer').style.display = '';
+
+    } catch (err) {
+      document.getElementById('app').innerHTML = `
+        <div class="error-state">
+          <p class="error-title">Error al cargar el contenido.</p>
+          <p>Este sitio requiere un servidor HTTP. Abre
+            <code>index.html</code> desde un servidor local o GitHub Pages.</p>
+          <small>${err.message}</small>
+        </div>`;
+    }
+  }
+
+  init();
   </script>
 </body>
 </html>

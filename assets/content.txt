@@ -1,21 +1,27 @@
+---
+brand: AI Productivity Experience
+whatsapp: https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience
+---
+
+<!-- section: hero -->
 # Tu competencia ya está usando AI.
 
 ## AI Productivity Experience — 5 días que cambian cómo trabajas para siempre.
 
 Para emprendedores que no tienen tiempo que perder.
 
----
+[<span class="su-icon" data-su-icon="message-circle"></span> Reserva tu cupo por WhatsApp →](#reserva)
 
+<!-- section: pain -->
 ## El Problema
 
 ### Pasas horas en tareas que la AI resuelve en minutos.
 
-- ✉️ **Escribes el mismo email 10 veces** — Cada mensaje desde cero. Cada vez.
-- 🔍 **Buscas información que no encuentras** — Horas perdidas en Google sin resultados claros.
-- 📝 **Crear contenido te toma días** — Posts, presentaciones, propuestas — todo desde cero.
+- <span class="su-icon" data-su-icon="clipboard-list"></span> **Escribes el mismo email 10 veces** — Cada mensaje desde cero. Cada vez.
+- <span class="su-icon" data-su-icon="search"></span> **Buscas información que no encuentras** — Horas perdidas en Google sin resultados claros.
+- <span class="su-icon" data-su-icon="clipboard-list"></span> **Crear contenido te toma días** — Posts, presentaciones, propuestas — todo desde cero.
 
----
-
+<!-- section: reality -->
 ## La Realidad Incómoda
 
 ### Mientras tú dudas, otros ya producen 10x más rápido.
@@ -23,139 +29,133 @@ Para emprendedores que no tienen tiempo que perder.
 La AI no es el futuro. Es el presente.
 Y la brecha entre quien la usa y quien no, crece cada día.
 
-> ⚠️ Cada día que pasa sin usar AI, tu competencia se adelanta más.
+> <span class="su-icon" data-su-icon="alert-circle"></span> Cada día que pasa sin usar AI, tu competencia se adelanta más.
 
----
-
+<!-- section: solution -->
 ## La Solución
 
 ### 5 días. 21 herramientas. Una nueva forma de trabajar.
 
 **AI Productivity Experience** es un entrenamiento práctico en vivo donde sales usando AI desde el primer día.
 
-- 🚫 No teoría
-- 🔴 En vivo
-- ✅ Resultados reales
+- <span class="su-icon" data-su-icon="x-circle"></span> No teoría
+- <span class="su-icon" data-su-icon="video"></span> En vivo
+- <span class="su-icon" data-su-icon="check-circle"></span> Resultados reales
 
----
-
+<!-- section: method -->
 ## El Programa
 
 ### Qué vas a dominar — los 5 días
 
 Cada día, un stack completo. Cada sesión, resultados reales.
 
-| Día | Enfoque | Resultado |
-|-----|---------|-----------|
-| 🧠 Día 1 | Tu cerebro AI | Produce el doble en la mitad del tiempo |
-| 🔍 Día 2 | Investigación | Investiga y analiza como un experto en minutos |
-| ✍️ Día 3 | Contenido | Crea contenido profesional que vende |
-| 🎬 Día 4 | Producción | Produce voz, música y video sin estudio |
-| 🏆 Día 5 | Cierre | Imagen, reuniones y tu proyecto real terminado |
+- <span class="su-icon" data-su-icon="brain"></span> **Día 1 — Tu cerebro AI** Produce el doble en la mitad del tiempo
+- <span class="su-icon" data-su-icon="search"></span> **Día 2 — Investigación** Investiga y analiza como un experto en minutos
+- <span class="su-icon" data-su-icon="clipboard-list"></span> **Día 3 — Contenido** Crea contenido profesional que vende
+- <span class="su-icon" data-su-icon="video"></span> **Día 4 — Producción** Produce voz, música y video sin estudio
+- <span class="su-icon" data-su-icon="award"></span> **Día 5 — Cierre** Imagen, reuniones y tu proyecto real terminado
 
----
-
+<!-- section: transformation -->
 ## Tu Transformación
 
 ### No sales con apuntes. Sales con habilidades.
 
-- ✅ 21 herramientas dominadas
-- ✅ Flujos de trabajo listos
-- ✅ Un proyecto real terminado
-- ✅ Comunidad de apoyo
+- <span class="su-icon" data-su-icon="check-circle"></span> 21 herramientas dominadas
+- <span class="su-icon" data-su-icon="check-circle"></span> Flujos de trabajo listos
+- <span class="su-icon" data-su-icon="check-circle"></span> Un proyecto real terminado
+- <span class="su-icon" data-su-icon="users"></span> Comunidad de apoyo
 
----
-
+<!-- section: comparison -->
 ## Por Qué Es Diferente
 
 ### No es un curso más.
 
-| ❌ Otros cursos | ✅ AI Productivity Experience |
-|----------------|-------------------------------|
-| Teoría sin práctica | Práctica real desde el Día 1 |
-| Videos pregrabados | Sesiones en vivo con instructor |
-| Te quedas igual | Sales produciendo con AI |
-| Sin retroalimentación | Feedback real en cada sesión |
+### <span class="su-icon" data-su-icon="x-circle"></span> Otros cursos
 
-> 🔥 "Es un laboratorio, no una conferencia."
+- Teoría sin práctica
+- Videos pregrabados
+- Te quedas igual
+- Sin retroalimentación
 
----
+### <span class="su-icon" data-su-icon="check-circle"></span> AI Productivity Experience
 
+- Práctica real desde el Día 1
+- Sesiones en vivo con instructor
+- Sales produciendo con AI
+- Feedback real en cada sesión
+
+> <span class="su-icon" data-su-icon="target"></span> "Es un laboratorio, no una conferencia."
+
+<!-- section: format -->
 ## El Formato
 
 ### Diseñado para tu vida de emprendedor.
 
-- 📅 **5 días en vivo** — Un stack completo por día
-- ⏰ **2 horas por día** — Intensivo y enfocado en resultados
-- 👥 **Cupos limitados** — Para garantizar acompañamiento real
-- 💻 **100% online** — Vía Zoom, desde donde estés
-- 📱 **Comunidad WhatsApp** — Soporte y recursos después del curso
+- <span class="su-icon" data-su-icon="calendar"></span> **5 días en vivo** — Un stack completo por día
+- <span class="su-icon" data-su-icon="clock"></span> **2 horas por día** — Intensivo y enfocado en resultados
+- <span class="su-icon" data-su-icon="users"></span> **Cupos limitados** — Para garantizar acompañamiento real
+- <span class="su-icon" data-su-icon="video"></span> **100% online** — Vía Zoom, desde donde estés
+- <span class="su-icon" data-su-icon="message-circle"></span> **Comunidad WhatsApp** — Soporte y recursos después del curso
 
 Diseñado para que aprendas haciendo, en vivo, con acompañamiento.
 
----
-
+<!-- section: for-who -->
 ## ¿Para Quién Es?
 
 ### Sé honesto contigo mismo.
 
-**✅ Es para ti si...**
+### <span class="su-icon" data-su-icon="check-circle"></span> Es para ti si...
+
 - Tienes un negocio o emprendimiento activo
 - Valoras tu tiempo y quieres recuperarlo
 - Quieres ventaja real sobre tu competencia
 - Estás listo para aplicar desde el primer día
 
-**❌ No es para ti si...**
+### <span class="su-icon" data-su-icon="x-circle"></span> No es para ti si...
+
 - Buscas solo teoría sin comprometerte
 - No piensas aplicar nada de lo aprendido
 - Prefieres quedarte atrás esperando
 - Quieres ver videos a tu propio ritmo
 
----
-
+<!-- section: question -->
 ## La Pregunta Que Importa
 
 ### ¿Cuánto te cuesta NO saber usar AI mientras tu competencia ya la domina?
 
 La inversión en este curso se paga sola con el tiempo que ahorras la primera semana.
 
-> 💡 Horas recuperadas × valor de tu tiempo = ROI desde el Día 1.
+> <span class="su-icon" data-su-icon="target"></span> Horas recuperadas × valor de tu tiempo = ROI desde el Día 1.
 
----
-
+<!-- section: pricing -->
 ## La Oferta
 
-# $497 — Acceso Completo
+**$497 — Acceso Completo**
 
-🎥 **5 clases en vivo** + grabaciones de por vida
+- <span class="su-icon" data-su-icon="video"></span> **5 clases en vivo** + grabaciones de por vida
+- <span class="su-icon" data-su-icon="layers"></span> **21 herramientas de AI dominadas** — flujos de trabajo listos para usar
+- <span class="su-icon" data-su-icon="clipboard-list"></span> **Recursos y prompts** de cada sesión
+- <span class="su-icon" data-su-icon="message-circle"></span> **Comunidad WhatsApp** — Soporte y acompañamiento incluido
 
-🛠 **21 herramientas de AI dominadas** — flujos de trabajo listos para usar
+> <span class="su-icon" data-su-icon="target"></span> **La inversión se paga sola con el tiempo que recuperas la primera semana.**
 
-📄 **Recursos y prompts** de cada sesión
+[<span class="su-icon" data-su-icon="message-circle"></span> Reservar mi cupo — $497](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience)
 
-📱 **Comunidad WhatsApp** — Soporte y acompañamiento incluido
-
-> 💡 **La inversión se paga sola con el tiempo que recuperas la primera semana.**
-
-[📲 Reservar mi cupo — $497](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience)
-
----
-
+<!-- section: cta -->
 ## Inscríbete Ahora
 
 ### Asegura tu cupo.
 
 Cupos limitados por cohorte para garantizar acompañamiento real.
 
-- 📱 **Escríbeme por WhatsApp para reservar tu lugar**
-- 👉 **[Reservar mi cupo — $497 →](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience)**
-- ⚡ Respuesta inmediata — Te confirmamos tu cupo al instante
-- 🔒 Cupos limitados — No esperes, se agotan rápido
+- <span class="su-icon" data-su-icon="message-circle"></span> **Escríbeme por WhatsApp para reservar tu lugar**
+- <span class="su-icon" data-su-icon="zap"></span> Respuesta inmediata — Te confirmamos tu cupo al instante
+- <span class="su-icon" data-su-icon="alert-circle"></span> Cupos limitados — No esperes, se agotan rápido
 
----
+[<span class="su-icon" data-su-icon="message-circle"></span> Reservar mi cupo — $497 →](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience)
 
-> La AI no va a esperarte. Pero hoy tienes la oportunidad de adelantarte.
->
-> **AI Productivity Experience**
->
-> 📱 [Reserva tu cupo hoy por WhatsApp →](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience) 🚀
+*La AI no va a esperarte. Pero hoy tienes la oportunidad de adelantarte.*
+
+**AI Productivity Experience**
+
+*[Reserva tu cupo hoy por WhatsApp →](https://wa.me/18094089999?text=Hola%2C%20quiero%20reservar%20mi%20cupo%20en%20AI%20Productivity%20Experience)*
